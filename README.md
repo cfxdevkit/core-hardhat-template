@@ -1,4 +1,6 @@
 # Conflux DevKit Template
+## Instructions
+you can find additional informations and details on how to use this repository in the [wiki](https://github.com/cfxdevkit/core-hardhat-template/wiki) 
 ## Overview
 This repository serves as a template for the Conflux DevKit. Before using it, make sure to customize the following files:
 
