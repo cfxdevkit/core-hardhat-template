@@ -1,0 +1,18 @@
+{
+  "name": "core-hardhat-template",
+  "version": "0.1.0",
+  "description": "hardhat-cive template for Conflux core space",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@civex/hardhat-cive": "^0.0.1",
+    "cive": "^0.3.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2"
+  }
+}
