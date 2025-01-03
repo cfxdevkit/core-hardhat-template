@@ -1,24 +1,67 @@
-# Conflux DevKit Template
-## Instructions
-you can find additional informations and details on how to use this repository in the [wiki](https://github.com/cfxdevkit/core-hardhat-template/wiki) 
+# Conflux DevKit ESpace HardHat Template
+
+Welcome to the Conflux DevKit ESpace HardHat Template repository! This template is designed to help developers streamline their development process on the Conflux blockchain.  
+
+---
+
+## 🚀 Getting Started
+
+For detailed information and step-by-step instructions on how to utilize this repository effectively, please refer to our comprehensive [**Wiki**](https://github.com/cfxdevkit/core-hardhat-template/wiki).
+
+---
+
+## 📢 Need Help or Have Questions?
+
+If you encounter issues or have questions related to this repository, you can:
+
+- **Raise an Issue:** Submit your query or report an issue using [this link](https://github.com/cfxdevkit/core-hardhat-template/issues/new/choose).  
+- **Join the Community:** Connect with fellow Conflux developers and get assistance via:  
+  - **Telegram:** [ConfluxDevs](https://t.me/ConfluxDevs)  
+  - **Discord:** [Conflux Network Developers](https://discord.com/channels/707952293412339843/707952293856673887)  
+
+---
+
+## 🌐 Stay Connected
+
+Join the vibrant Conflux developer community and stay updated with the latest tools, tips, and discussions. Whether you're a seasoned developer or just getting started, we're here to help you succeed.
+
+Happy coding! 🚀
+
 ## Overview
-This repository serves as a template for the Conflux DevKit. Before using it, make sure to customize the following files:
 
-- **README.md** (this file)
+This repository serves as a starting point for projects using the Conflux DevKit. Before utilizing it, ensure the following files are customized to suit your project's needs:
 
-- **[CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)**: 
-  - Change the email in the `Enforcement` section (placeholder: `YOUR@EMAIL.HERE`).
+### 📝 Documentation Files
+- **README.md** (this file):  
+  - Update this file to reflect the specifics of your project.  
 
-- **[CONTRIBUTING.md](CONTRIBUTING.md)**:
-  - Change the GitHub user in the `Solve an issue` section (placeholder: `GITHUBUSER`).
+- **[CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)**:  
+  - Replace the email address in the `Enforcement` section with your contact information.  
 
-- **[pull_request_template.md](.github/pull_request_template.md)**:
-  - Change the GitHub user in the `Additional Information` section (placeholder: `GITHUBUSER`).
+- **[CONTRIBUTING.md](CONTRIBUTING.md)**:  
+  - Update the GitHub username in the `Solve an issue` section to point to your account.  
 
-- **[config.yml](.github/ISSUE_TEMPLATE/config.yml)**:
-  - Change the GitHub user in the URLs (placeholder: `GITHUBUSER`).
+- **[pull_request_template.md](.github/pull_request_template.md)**:  
+  - Change the GitHub username in the `Additional Information` section to your own.  
 
-- **[LICENSE](LICENSE)**:
-  - Change the GitHub user (placeholder: `GITHUBUSER`).
+### ⚙️ Configuration Files
+- **[config.yml](.github/ISSUE_TEMPLATE/config.yml)**:  
+  - Modify the GitHub username in the URLs to match your repository's settings.  
 
-Additionally, customize the repository as needed, including the **[.gitignore](.gitignore)** and other relevant files.
+### 📜 Legal Files
+- **[LICENSE](LICENSE)**:  
+  - Update the GitHub username in the license text to reflect your project ownership.  
+
+- **[SECURITY.md](SECURITY.md)**:  
+  - Replace the email in the `Reporting Security Issues` section with your security contact details.  
+
+### 🛠️ Other Files
+- **[.gitignore](.gitignore)**:  
+  - Adjust the entries to reflect the specific requirements of your project.  
+
+### ✅ Final Checklist
+- Review the repository thoroughly to ensure all configurations, branding, and settings align with your project's goals.
+
+---
+
+These steps ensure the template is tailored to your project's needs. Happy coding! 🚀
