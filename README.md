@@ -1,6 +1,6 @@
-# Conflux DevKit ESpace HardHat Template
+# Conflux DevKit Core HardHat Template
 
-Welcome to the Conflux DevKit ESpace HardHat Template repository! This template is designed to help developers streamline their development process on the Conflux blockchain.  
+Welcome to the Conflux DevKit Core HardHat Template repository! This template is designed to help developers streamline their development process on the Conflux blockchain.  
 
 ---
 
