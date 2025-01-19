@@ -3,7 +3,7 @@ import { vars } from "hardhat/config";
 import "@civex/hardhat-cive";
 
 import "./scripts/tasks"
-const deployer_account = vars.get("DEPLOYER_ACCOUNT")
+const deployer_account = vars.get("DEPLOYER_ACCOUNT_CORE")
 
 const config: HardhatUserConfig = {
   solidity: "0.8.28",
