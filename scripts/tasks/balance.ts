@@ -4,7 +4,7 @@ import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { getPublicClient, getWalletClients } from "./utils";
 
 export async function balance(
-  taskArguments: { stop: boolean; status: boolean },
+  taskArguments: {},
   hre: HardhatRuntimeEnvironment,
   runSuper: unknown,
 ) {

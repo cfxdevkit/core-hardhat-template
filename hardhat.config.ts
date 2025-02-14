@@ -1,6 +1,5 @@
 import type { HardhatUserConfig } from "hardhat/config";
 import { vars } from "hardhat/config";
-import "@nomiclabs/hardhat-etherscan";
 import "hardhat-gas-reporter"
 import "@civex/hardhat-cive";
 
@@ -33,30 +32,6 @@ const config: HardhatUserConfig = {
     cache: "./cache",
     artifacts: "./artifacts",
   },
-  etherscan: {
-    apiKey: {
-      confluxCoreTestnet: "<api-key>",
-      confluxCore: "<api-key>",
-    },
-    customChains: [
-      {
-        network: "confluxCore",
-        chainId: 1030,
-        urls: {
-          apiURL: "https://api.confluxscan.io/api",
-          browserURL: "https://confluxscan.io",
-        },
-      },
-      {
-        network: "confluxCoreTestnet",
-        chainId: 1,
-        urls: {
-          apiURL: "https://api-testnet.confluxscan.io/api",
-          browserURL: "https://testnet.confluxscan.io",
-        },
-      },
-    ],
-  },
   networks: {
     hardhat: {
       chainId: 31337,
@@ -70,19 +45,21 @@ const config: HardhatUserConfig = {
     },
     confluxCoreLocal: {
       url: "http://localhost:12537",
-      chainId: 2029,
+      chainId: 2030,
       accounts: [deployer_account],
       timeout: 20000,  // 20 seconds
       gasMultiplier: 1.2,  // Add 20% to gas estimation
     },
     confluxCoreTestnet: {
       url: "https://test.confluxrpc.com",
+      chainId: 1,
       accounts: [deployer_account],
       timeout: 20000,
       gasMultiplier: 1.2,
     },
     confluxCore: {
       url: "https://main.confluxrpc.com",
+      chainId: 1030,
       accounts: [deployer_account],
       timeout: 20000,
       gasMultiplier: 1.2,

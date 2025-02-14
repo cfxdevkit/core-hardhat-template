@@ -2,7 +2,7 @@ import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { getWalletClients } from "./utils";
 
 export async function accounts(
-  taskArguments: { stop: boolean; status: boolean },
+  taskArguments: {},
   hre: HardhatRuntimeEnvironment,
   runSuper: unknown,
 ) {
