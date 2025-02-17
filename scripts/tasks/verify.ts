@@ -40,7 +40,8 @@ contract MyToken {
     // Prepare verification request with exact known working parameters
     const formData = new URLSearchParams();
     // Required parameters
-    formData.append('contractaddress', base32AddressToHex({address: 'cfxtest:acf1pgpsba74g31ktb3ycuv5egerc1mspuh7694akr'}));
+    // formData.append('contractaddress', base32AddressToHex({address: 'cfxtest:acf1pgpsba74g31ktb3ycuv5egerc1mspuh7694akr'}));
+    formData.append('contractaddress', 'cfxtest:acf1pgpsba74g31ktb3ycuv5egerc1mspuh7694akr');
     formData.append('sourceCode', contractSource);
     formData.append('codeformat', 'solidity-single-file');
     formData.append('contractname', 'MyToken');
@@ -48,7 +49,7 @@ contract MyToken {
     formData.append('optimizationUsed', '1');
     formData.append('runs', '200');
     formData.append('licenseType', '3');
-    formData.append('evmversion', 'constantinople');
+    formData.append('evmversion', 'paris');
     formData.append('constructorArguements', ''); // Empty but required
 
     // Library parameters (empty but required according to swagger)
