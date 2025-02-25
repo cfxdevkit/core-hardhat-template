@@ -10,4 +10,8 @@ task("accounts", "Show the available accounts").setAction(accounts);
 
 task("balance", "Show the balance for the configured networks").setAction(balance);
 
-task("verify", "Verify the deployed contract").setAction(verify);
+task("verify", "Verify the deployed contract")
+  .addParam("contract", "The name of the contract to verify")
+  .addParam("address", "The address of the deployed contract")
+  .addOptionalParam("constructorArgs", "The constructor arguments used in deployment (if any)")
+  .setAction(verify);

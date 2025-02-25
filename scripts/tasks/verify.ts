@@ -1,7 +1,4 @@
 import { HardhatRuntimeEnvironment } from "hardhat/types";
-import axios from "axios";
-import { base32AddressToHex } from 'cive/utils'
-const BASE_URI = "https://api-testnet.confluxscan.io";
 
 interface VerificationResponse {
   code: number;
@@ -11,46 +8,70 @@ interface VerificationResponse {
   result?: string;
 }
 
+interface TaskArguments {
+  contract?: string;
+  address?: string;
+  constructorArgs?: string;
+}
+
+function getVerificationApiUrl(network: string): string {
+  switch (network) {
+    case 'confluxCoreTestnet':
+      return "https://api-testnet.confluxscan.io";
+    case 'confluxCore':
+      return "https://api.confluxscan.io";
+    default:
+      throw new Error("Please use --network confluxCoreTestnet or --network confluxCore for contract verification");
+  }
+}
+
 export async function verify(
-  taskArguments: { contract?: string; id?: string },
+  taskArguments: TaskArguments,
   hre: HardhatRuntimeEnvironment
 ) {
   try {
-    // Use the exact contract source code that works
-    const contractSource = `// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.28;
+    if (!taskArguments.contract || !taskArguments.address) {
+      throw new Error("Contract name and address are required. Usage: npx hardhat verify --contract MyToken --address <address> [--constructorArgs <args>]");
+    }
 
-contract MyToken {
-  uint256 public totalSupply;
+    // Get the API URL based on the network
+    const BASE_URI = getVerificationApiUrl(hre.network.name);
 
-  constructor(uint256 _initialSupply) {
-    totalSupply = _initialSupply;
-  }
+    // Get contract name and file path
+    const contractName = taskArguments.contract;
+    const contractPath = `contracts/${contractName}.sol`;
+    
+    // Get the build info using Hardhat's internal functions
+    const buildInfo = await hre.artifacts.getBuildInfo(`${contractPath}:${contractName}`);
+    if (!buildInfo) {
+      throw new Error(`Build info not found for ${contractName}. Make sure the contract is compiled.`);
+    }
 
-  function increaseSupply(uint256 _amount) public {
-    require(_amount > 0, "Amount must be greater than 0");
-    totalSupply += _amount;
-  }
+    // Check if the contract exists in the build info
+    if (!buildInfo.input.sources[contractPath]) {
+      throw new Error(`Contract ${contractName} not found in ${contractPath}. Make sure the contract name and path are correct.`);
+    }
 
-  function getCurrentSupply() public view returns (uint256) {
-    return totalSupply;
-  }
-}`;
+    // Extract verification info from build info
+    const contractSource = buildInfo.input.sources[contractPath].content;
+    const compilerVersion = `v${buildInfo.solcLongVersion}` || `v${buildInfo.solcVersion}`;
+    const optimizerSettings = buildInfo.input.settings.optimizer || { enabled: false, runs: 200 };
+    const evmVersion = buildInfo.input.settings.evmVersion || 'paris';
 
-    // Prepare verification request with exact known working parameters
+    // Prepare verification request
     const formData = new URLSearchParams();
+    
     // Required parameters
-    // formData.append('contractaddress', base32AddressToHex({address: 'cfxtest:acf1pgpsba74g31ktb3ycuv5egerc1mspuh7694akr'}));
-    formData.append('contractaddress', 'cfxtest:acf1pgpsba74g31ktb3ycuv5egerc1mspuh7694akr');
+    formData.append('contractaddress', taskArguments.address);
     formData.append('sourceCode', contractSource);
     formData.append('codeformat', 'solidity-single-file');
-    formData.append('contractname', 'MyToken');
-    formData.append('compilerversion', 'v0.8.28+commit.7893614a');
-    formData.append('optimizationUsed', '1');
-    formData.append('runs', '200');
-    formData.append('licenseType', '3');
-    formData.append('evmversion', 'paris');
-    formData.append('constructorArguements', ''); // Empty but required
+    formData.append('contractname', contractName);
+    formData.append('compilerversion', compilerVersion);
+    formData.append('optimizationUsed', optimizerSettings.enabled ? '1' : '0');
+    formData.append('runs', (optimizerSettings.runs || 200).toString());
+    formData.append('licenseType', '3'); // MIT License
+    formData.append('evmversion', evmVersion);
+    formData.append('constructorArguements', taskArguments.constructorArgs || '');
 
     // Library parameters (empty but required according to swagger)
     for (let i = 1; i <= 10; i++) {
@@ -58,35 +79,37 @@ contract MyToken {
       formData.append(`libraryaddress${i}`, '');
     }
 
+    console.log(`Verifying contract on ${hre.network.name}...`);
     console.log("Sending verification request to:", `${BASE_URI}/contract/verifysourcecode`);
-    console.log("Request body:", Object.fromEntries(formData));
 
-    // Send verification request
-    const response = await axios.post<VerificationResponse>(
-      `${BASE_URI}/contract/verifysourcecode`,
-      formData,
-      {
-        headers: {
-          'accept': 'application/json',
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      }
-    );
+    // Send verification request using fetch
+    const response = await fetch(`${BASE_URI}/contract/verifysourcecode`, {
+      method: 'POST',
+      headers: {
+        'accept': 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: formData,
+    });
 
-    const { data } = response;
-    console.log("Raw response:", response.data);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data: VerificationResponse = await response.json();
 
     if (data.status === '1' || data.code === 0) {
       console.log("Contract verification submitted successfully!");
-      console.log("GUID:", data.result);
+      console.log("GUID:", data.data);
+    } else if (data.data === 'Contract source code already verified') {
+      console.log("✅ Contract is already verified on the network");
     } else {
-      console.error("Verification failed:", data.message || data.data);
+      console.error("Verification failed:", data);
     }
 
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.error("Verification error:", error.response?.data || error.message);
-      console.error("Full error:", error.response);
+    if (error instanceof Error) {
+      console.error("Verification error:", error.message);
     } else {
       console.error("Verification error:", error);
     }
