@@ -9,7 +9,7 @@ async function main() {
   // increaseSupply sends a tx, so we need to wait for it to be mined
   const publicClient = await hre.cive.getPublicClient();
 
-  await publicClient.waitForTransactionReceipt({ hash });
+  await publicClient.waitForTransactionReceipt({ hash, retryCount: 12, timeout: 100000 });
 
   const newSupply = await myToken.read.getCurrentSupply();
   console.log(`New supply of MyToken: ${newSupply}`); // New supply of MyToken: 1500000
