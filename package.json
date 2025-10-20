@@ -11,11 +11,11 @@
   },
   "devDependencies": {
     "@civex/hardhat-cive": "^0.0.2",
-    "axios": "^1.7.9",
+    "axios": "^1.12.2",
     "cive": "^0.8.1",
-    "hardhat-gas-reporter": "^2.2.2",
+    "hardhat-gas-reporter": "^2.3.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.7.2"
+    "typescript": "^5.9.3"
   },
   "dependencies": {
     "@types/node-fetch": "^2.6.13",
