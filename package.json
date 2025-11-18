@@ -11,7 +11,7 @@
   },
   "devDependencies": {
     "@civex/hardhat-cive": "^0.0.2",
-    "axios": "^1.12.2",
+    "axios": "^1.13.2",
     "cive": "^0.8.1",
     "hardhat-gas-reporter": "^2.3.0",
     "ts-node": "^10.9.2",

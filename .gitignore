@@ -6,6 +6,7 @@
 .devcontainer/conflux/devkit/node_modules
 node_modules
 .env
+.pnpm-store
 
 # Hardhat files
 /cache
